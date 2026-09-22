@@ -1,12 +1,26 @@
-# Netscan
-Install on the phone, allow "install from unknown sources" when prompted, and make sure the phone is on the Wi-Fi you want to scan — the target field auto-fills with your subnet.
-| nmap flag    | NetScan feature                                                                                          |
-| ------------ | -------------------------------------------------------------------------------------------------------- |
-| `-sn`        | **Host discovery**: ICMP ping sweep of a whole subnet (uses the system `ping` binary, so no root needed) |
-| `-sT`        | **TCP connect scan** of any port list/range, 64 parallel connections per host, hosts scanned in parallel |
-| `-sV` (lite) | **Banner grabbing** — reads service banners, sends `HEAD /` for HTTP ports (80/8000/8080/8888)           |
-| `-p`         | Port spec parsing: `1-1024`, `22,80,443,8080`, mixed lists                                               |
-Project structure:
-ScannerEngine.kt — the core: local subnet auto-detection from Wi-Fi DHCP info, ping sweep, parsePorts(), semaphore-limited connect-scan, HTTP probe + banner reader
-MainActivity.kt — UI: target field (single IP or 192.168.1.0/255.255.255.0), port field, "ping sweep first" checkbox, start/stop, live results list with progress
-ResultAdapter.kt + layouts, manifest with INTERNET / ACCESS_WIFI_STATE permissions
+# NetScan
+
+An nmap-style network scanner for Android (no root required).
+
+- **Host discovery**: ICMP ping sweep of a subnet (nmap -sn)
+- **Port scanning**: TCP connect scan with parallel workers (nmap -sT)
+- **Service probes**: banner grabbing + HTTP HEAD probe (nmap -sV lite)
+
+## Get the APK
+
+### Option A - GitHub Actions (no PC tools needed)
+1. Create a new repository on github.com and upload these files (or `git push`).
+2. Go to the **Actions** tab -> "Build APK" -> **Run workflow**.
+3. When it finishes, open the run -> **Artifacts** -> download `netscan-apk` -> the `.apk` is inside.
+
+### Option B - Android Studio
+1. Open the project folder in Android Studio, let Gradle sync.
+2. **Build > Build Bundle(s)/APK(s) > Build APK(s)**.
+3. Click "locate" to find `app-debug.apk`.
+
+## Usage
+- Target field accepts a single IP (`192.168.1.1`) or a subnet (`192.168.1.0/255.255.255.0`).
+- Ports accept ranges/lists: `1-1024`, `22,80,443`, or mixed.
+- Enable "Ping sweep" to discover live hosts before scanning (much faster on big subnets).
+
+Only scan networks you own or are authorized to test.

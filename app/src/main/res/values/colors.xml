@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#0E1214</color>
+    <color name="card">#181F24</color>
+    <color name="card_stroke">#263039</color>
+    <color name="text">#E9EEF2</color>
+    <color name="muted">#8A969E</color>
+    <color name="accent">#00E676</color>
+    <color name="accent_dim">#12362A</color>
+    <color name="blue">#40C4FF</color>
+    <color name="amber">#FFD740</color>
+    <color name="purple">#B388FF</color>
+    <color name="danger">#FF5252</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>
